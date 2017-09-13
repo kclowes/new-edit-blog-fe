@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router';
 
 import TodoPage from '../containers/TodoPage';
@@ -16,14 +14,4 @@ export class App extends Component {
   }
 }
 
-App.propTypes = {
-  dispatch: PropTypes.func,
-};
-
-function mapStateToProps(state) {
-  return {
-    items: state.items.list,
-  };
-}
-
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(App);

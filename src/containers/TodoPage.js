@@ -24,19 +24,42 @@ export class TodoPage extends Component {
     this.setState({ name: '' });
   };
 
+  renderTodoList() {
+    const { todos } = this.props;
+    return todos.map((todo, i) => {
+      return (
+        <li key={i}>
+          {todo.name}
+        </li>
+      );
+    });
+  }
+
   render() {
     return (
-      <TodoForm
-        name={this.state.name}
-        handleChange={this.handleChange.bind(name)}
-        handleSubmit={this.handleSubmit}
-      />
+      <div>
+        <TodoForm
+          name={this.state.name}
+          handleChange={this.handleChange.bind(name)}
+          handleSubmit={this.handleSubmit}
+        />
+        <ul>
+          {this.renderTodoList()}
+        </ul>
+      </div>
     );
   }
 }
 
 TodoPage.propTypes = {
   dispatch: PropTypes.func,
+  todos: PropTypes.array,
 };
 
-export default connect()(TodoPage);
+function mapStateToProps(state) {
+  return {
+    todos: state.todos.list,
+  };
+}
+
+export default connect(mapStateToProps)(TodoPage);

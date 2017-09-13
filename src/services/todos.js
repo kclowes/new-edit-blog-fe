@@ -7,12 +7,22 @@ class Todo {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: {
-        name: name,
-      },
+      body: JSON.stringify({ name: name }),
     }).then(resp => {
       return resp;
     });
+  }
+
+  async getTodos() {
+    const response = await fetch('http://localhost:3000/todos', {
+      method: 'GET',
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw Error;
+    }
   }
 }
 
