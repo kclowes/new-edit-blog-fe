@@ -24,6 +24,18 @@ class Todo {
       throw Error;
     }
   }
+
+  updateTodo(todo) {
+    return fetch(`http://localhost:3000/todos/${todo.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: todo.name }),
+    }).then(resp => {
+      return resp;
+    });
+  }
 }
 
 export default new Todo();

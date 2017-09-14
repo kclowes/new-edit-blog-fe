@@ -38,7 +38,7 @@ function createNewTodoFailure() {
   return { type: CREATE_NEW_TODO__FAILURE };
 }
 
-function getTodos() {
+export function getTodos() {
   return async dispatch => {
     dispatch(getTodosRequest());
     try {
@@ -61,4 +61,33 @@ function getTodosSuccess(todos) {
 
 function getTodosFailure() {
   return { type: GET_TODOS__FAILURE };
+}
+
+export function updateTodo(id) {
+  return async dispatch => {
+    dispatch(updateTodoRequest());
+    try {
+      const response = await Todo.updateTodo(id);
+      if (response.status === 200) {
+        dispatch(updateTodoSuccess());
+      } else {
+        dispatch(updateTodoFailure());
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(updateTodoFailure());
+    }
+  };
+}
+
+function updateTodoRequest() {
+  return { type: UPDATE_TODO__REQUEST };
+}
+
+function updateTodoSuccess(todos) {
+  return { type: UPDATE_TODO__SUCCESS, todos };
+}
+
+function updateTodoFailure() {
+  return { type: UPDATE_TODO__FAILURE };
 }

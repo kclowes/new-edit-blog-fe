@@ -1,20 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Button from 'react-md/lib/Buttons/Button';
-import TextField from 'react-md/lib/TextFields';
 
 const TodoForm = ({ name, handleChange, handleSubmit }) => {
   return (
     <form>
-      <TextField
+      <input
         id="todo"
-        label="Add Todo"
-        onChange={name => {
-          handleChange(name);
+        onChange={e => {
+          handleChange(e);
         }}
+        placeholder="Add Todo"
+        type="text"
         value={name}
       />
-      <Button label="Submit" raised secondary onClick={handleSubmit} />
+      <button onClick={handleSubmit}>Submit</button>
     </form>
   );
 };
