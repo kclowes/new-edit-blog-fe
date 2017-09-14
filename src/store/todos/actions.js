@@ -6,6 +6,9 @@ export const CREATE_NEW_TODO__FAILURE = 'CREATE_NEW_TODO__FAILURE';
 export const GET_TODOS__REQUEST = 'GET_TODOS__REQUEST';
 export const GET_TODOS__SUCCESS = 'GET_TODOS__SUCCESS';
 export const GET_TODOS__FAILURE = 'GET_TODOS__FAILURE';
+export const UPDATE_TODO__REQUEST = 'UPDATE_TODO__REQUEST';
+export const UPDATE_TODO__SUCCESS = 'UPDATE_TODO__SUCCESS';
+export const UPDATE_TODO__FAILURE = 'UPDATE_TODO__FAILURE';
 
 export function createNewTodo(name) {
   return async dispatch => {
@@ -20,7 +23,6 @@ export function createNewTodo(name) {
         dispatch(createNewTodoFailure());
       }
     } catch (err) {
-      console.log(err);
       dispatch(createNewTodoFailure());
     }
   };
@@ -45,7 +47,6 @@ export function getTodos() {
       const data = await Todo.getTodos();
       dispatch(getTodosSuccess(data));
     } catch (err) {
-      console.log(err);
       dispatch(getTodosFailure());
     }
   };
@@ -68,6 +69,7 @@ export function updateTodo(id) {
     dispatch(updateTodoRequest());
     try {
       const response = await Todo.updateTodo(id);
+
       if (response.status === 200) {
         dispatch(updateTodoSuccess());
       } else {

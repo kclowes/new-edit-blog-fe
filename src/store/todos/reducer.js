@@ -5,12 +5,16 @@ import {
   GET_TODOS__FAILURE,
   GET_TODOS__REQUEST,
   GET_TODOS__SUCCESS,
+  UPDATE_TODO__FAILURE,
+  UPDATE_TODO__REQUEST,
+  UPDATE_TODO__SUCCESS,
 } from './actions';
 
 const initialState = {
   create_request: false,
   get_todos_request: false,
   list: [],
+  update_request: false,
 };
 
 export default function todos(state = initialState, action) {
@@ -39,6 +43,19 @@ export default function todos(state = initialState, action) {
     case GET_TODOS__FAILURE:
       return Object.assign({}, state, {
         get_todos_request: false,
+      });
+    case UPDATE_TODO__REQUEST:
+      return Object.assign({}, state, {
+        update_request: true,
+      });
+    case UPDATE_TODO__SUCCESS:
+      return Object.assign({}, state, {
+        list: action.todos,
+        update_request: false,
+      });
+    case UPDATE_TODO__FAILURE:
+      return Object.assign({}, state, {
+        update_request: false,
       });
     default:
       return state;

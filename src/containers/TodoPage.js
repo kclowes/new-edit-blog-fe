@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router';
 
-import { createNewTodo, getTodos } from '../store/todos/actions';
+import { createNewTodo, getTodos, updateTodo } from '../store/todos/actions';
 
 import TodoForm from '../components/TodoForm';
 import TodoEditForm from '../components/TodoEditForm';
@@ -25,7 +25,10 @@ export class TodoPage extends Component {
   todoToEdit = () => {
     const { match, todos } = this.props;
 
-    return todos.filter(todo => todo.id === parseInt(match.params.id, 10));
+    const wantedTodo = todos.filter(
+      todo => todo.id === parseInt(match.params.id, 10)
+    );
+    return wantedTodo[0];
   };
 
   handleChange = e => {
@@ -70,10 +73,10 @@ export class TodoPage extends Component {
           <Route
             exact
             path="/todos/:id/edit"
-            render={routeProps => (
+            render={routerProps => (
               <TodoEditForm
-                {...routeProps}
-                todo={this.todoToEdit}
+                {...routerProps}
+                todo={this.todoToEdit()}
                 handleEditSubmit={todo => this.handleEditSubmit(todo)}
               />
             )}

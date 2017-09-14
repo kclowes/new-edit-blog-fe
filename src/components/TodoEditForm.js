@@ -35,7 +35,6 @@ export default class TodoEditForm extends Component {
           }}
           type="text"
           value={name}
-          placeholder={name}
         />
         <button onClick={e => this.handleSubmit(e)}>Submit</button>
       </form>
