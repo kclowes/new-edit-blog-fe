@@ -72,6 +72,7 @@ export function updateTodo(id) {
 
       if (response.status === 200) {
         dispatch(updateTodoSuccess());
+        dispatch(getTodos());
       } else {
         dispatch(updateTodoFailure());
       }

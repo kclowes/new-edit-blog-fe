@@ -50,7 +50,6 @@ export default function todos(state = initialState, action) {
       });
     case UPDATE_TODO__SUCCESS:
       return Object.assign({}, state, {
-        list: action.todos,
         update_request: false,
       });
     case UPDATE_TODO__FAILURE:
