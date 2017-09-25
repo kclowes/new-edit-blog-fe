@@ -8,12 +8,17 @@ import {
   UPDATE_TODO__FAILURE,
   UPDATE_TODO__REQUEST,
   UPDATE_TODO__SUCCESS,
+  GET_TODO__FAILURE,
+  GET_TODO__REQUEST,
+  GET_TODO__SUCCESS,
 } from './actions';
 
 const initialState = {
   create_request: false,
   get_todos_request: false,
+  get_todo_request: false,
   list: [],
+  todo: {},
   update_request: false,
 };
 
@@ -55,6 +60,19 @@ export default function todos(state = initialState, action) {
     case UPDATE_TODO__FAILURE:
       return Object.assign({}, state, {
         update_request: false,
+      });
+    case GET_TODO__REQUEST:
+      return Object.assign({}, state, {
+        get_todo_request: true,
+      });
+    case GET_TODO__SUCCESS:
+      return Object.assign({}, state, {
+        todo: action.todo,
+        get_todo_request: false,
+      });
+    case GET_TODO__FAILURE:
+      return Object.assign({}, state, {
+        get_todo_request: false,
       });
     default:
       return state;

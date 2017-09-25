@@ -13,7 +13,9 @@ const TodoForm = ({ name, handleChange, handleSubmit }) => {
         type="text"
         value={name}
       />
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit} disabled={!name && name.length === 0}>
+        Submit
+      </button>
     </form>
   );
 };

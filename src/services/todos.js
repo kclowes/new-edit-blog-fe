@@ -36,6 +36,18 @@ class Todo {
       return resp;
     });
   }
+
+  async getTodo(id) {
+    const response = await fetch(`http://localhost:3000/todos/${id}`, {
+      method: 'GET',
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw Error;
+    }
+  }
 }
 
 export default new Todo();

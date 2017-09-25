@@ -9,6 +9,9 @@ export const GET_TODOS__FAILURE = 'GET_TODOS__FAILURE';
 export const UPDATE_TODO__REQUEST = 'UPDATE_TODO__REQUEST';
 export const UPDATE_TODO__SUCCESS = 'UPDATE_TODO__SUCCESS';
 export const UPDATE_TODO__FAILURE = 'UPDATE_TODO__FAILURE';
+export const GET_TODO__REQUEST = 'GET_TODO__REQUEST';
+export const GET_TODO__SUCCESS = 'GET_TODO__SUCCESS';
+export const GET_TODO__FAILURE = 'GET_TODO__FAILURE';
 
 export function createNewTodo(name) {
   return async dispatch => {
@@ -77,7 +80,6 @@ export function updateTodo(id) {
         dispatch(updateTodoFailure());
       }
     } catch (err) {
-      console.log(err);
       dispatch(updateTodoFailure());
     }
   };
@@ -87,10 +89,34 @@ function updateTodoRequest() {
   return { type: UPDATE_TODO__REQUEST };
 }
 
-function updateTodoSuccess(todos) {
-  return { type: UPDATE_TODO__SUCCESS, todos };
+function updateTodoSuccess() {
+  return { type: UPDATE_TODO__SUCCESS };
 }
 
 function updateTodoFailure() {
   return { type: UPDATE_TODO__FAILURE };
+}
+
+export function getTodo(id) {
+  return async dispatch => {
+    dispatch(getTodoRequest());
+    try {
+      const data = await Todo.getTodo(id);
+      dispatch(getTodoSuccess(data));
+    } catch (err) {
+      dispatch(getTodoFailure());
+    }
+  };
+}
+
+function getTodoRequest() {
+  return { type: GET_TODO__REQUEST };
+}
+
+function getTodoSuccess(todo) {
+  return { type: GET_TODO__SUCCESS, todo };
+}
+
+function getTodoFailure() {
+  return { type: GET_TODO__FAILURE };
 }
