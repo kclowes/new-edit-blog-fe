@@ -7,7 +7,6 @@ export class TodoEditForm extends Component {
 
     this.state = {
       todo: props.todo,
-      // name: props.todo.name
     };
   }
 

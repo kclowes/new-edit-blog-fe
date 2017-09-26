@@ -8,29 +8,46 @@ import { getTodo, updateTodo } from '../store/todos/actions';
 import TodoEditForm from '../components/TodoEditForm';
 
 export class TodoEditPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      todo: props.todo,
+    };
+  }
+
   componentDidMount() {
     const { dispatch, match } = this.props;
 
     dispatch(getTodo(match.params.id));
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.todo !== nextProps.todo) {
+      this.setState({
+        todo: nextProps.todo,
+      });
+    }
+  }
+
   handleEditSubmit = todo => {
     const { dispatch, history } = this.props;
 
     dispatch(updateTodo(todo));
-    this.setState({ name: '' });
 
     history.push('/');
   };
 
   render() {
-    if (isEmpty(this.props.todo)) {
+    const { todo } = this.state;
+
+    if (isEmpty(todo)) {
       return null;
     }
 
     return (
       <TodoEditForm
-        todo={this.props.todo}
+        todo={todo}
         handleEditSubmit={todo => this.handleEditSubmit(todo)}
         handleChange={e => this.handleChange(e)}
       />

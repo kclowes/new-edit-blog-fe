@@ -74,7 +74,7 @@ export function updateTodo(id) {
       const response = await Todo.updateTodo(id);
 
       if (response.status === 200) {
-        dispatch(updateTodoSuccess());
+        dispatch(updateTodoSuccess(response));
         dispatch(getTodos());
       } else {
         dispatch(updateTodoFailure());
@@ -89,8 +89,8 @@ function updateTodoRequest() {
   return { type: UPDATE_TODO__REQUEST };
 }
 
-function updateTodoSuccess() {
-  return { type: UPDATE_TODO__SUCCESS };
+function updateTodoSuccess(todo) {
+  return { type: UPDATE_TODO__SUCCESS, todo };
 }
 
 function updateTodoFailure() {
